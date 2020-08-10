@@ -104,7 +104,7 @@ std::shared_ptr<SparseDataset> S3SparseIterator::getNext() {
                                       config.get_minibatch_size(), has_labels);
 
 #ifdef DEBUG
-  ds.check();
+  //ds.check();
 #endif
   return ds;
 }
