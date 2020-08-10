@@ -214,10 +214,11 @@ def make_ubuntu_build_image(name):
 
     # Sometimes `apt-get update` doesn't work, returning exit code 100.
     while True:
+        instance.run_command("sudo apt-get dist-upgrade")
         status, _, _ = instance.run_command("sudo apt-get update", False)
         if status == 0:
             break
-
+    instance.run_command("yes | sudo dpkg --configure -a")
     instance.run_command("yes | sudo apt-get install build-essential cmake \
                           automake zlib1g-dev libssl-dev libcurl4-nss-dev \
                           bison libldap2-dev libkrb5-dev")
@@ -295,7 +296,8 @@ def make_lambda_package(path, executables_path):
         info.external_attr = 0o777 << 16  # Gives execute permission.
         handler_source = inspect.getsource(handler)
         zip.writestr(info, handler_source)
-
+        print((path,executables_path))
+        '''
         log.debug("Initializing S3.")
         executable = io.BytesIO()
 
@@ -305,9 +307,12 @@ def make_lambda_package(path, executables_path):
         resources.s3_client.download_fileobj(bucket, key, executable)
 
         log.debug("Writing executable.")
+        executable.seek(0)
+        '''
+        executable=open('/home/tkice/windows/Projects/parameter_server','rb')
         info = zipfile.ZipInfo("parameter_server")
         info.external_attr = 0o777 << 16  # Gives execute permission.
-        executable.seek(0)
+        
         zip.writestr(info, executable.read())
 
     log.debug("Uploading package.")

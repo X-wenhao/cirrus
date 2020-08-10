@@ -23,7 +23,8 @@ AWS_CREDENTIALS_PATH = "~/.aws/credentials"
 
 
 # An S3 URL at which the maintainers have published a Cirrus build.
-PUBLISHED_BUILD = "s3://cirrus-public"
+#PUBLISHED_BUILD = "s3://cirrus-public-123456"
+PUBLISHED_BUILD = "s3://cirrus-public-123456-debug"
 
 
 # The name to give to the server AMI.
