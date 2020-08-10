@@ -7,7 +7,7 @@
 
 #include <pthread.h>
 
-#undef DEBUG
+#define DEBUG
 
 namespace cirrus {
 
